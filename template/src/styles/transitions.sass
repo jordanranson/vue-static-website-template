@@ -1,0 +1,18 @@
+.tsx__fade-enter-active,
+.tsx__fade-leave-active
+  transition: opacity $tsxDuration $tsxEasing
+
+.tsx__fade-enter,
+.tsx__fade-leave-to
+  opacity: 0
+
+.tsx_pop-enter-active,
+.tsx_pop-leave-active
+  transition-property: opacity, transform
+  transition-duration: $tsxDuration
+  transition-timing-function: $tsxEasing
+
+.tsx_pop-enter,
+.tsx_pop-leave-to
+  opacity: 0
+  transform: scale(0.5)

@@ -1,0 +1,102 @@
+// Global variables, mixins, and functions
+// DO NOT PUT STYLES IN HERE
+
+@import "include-media/dist/_include-media.scss"
+
+
+/* Variables */
+
+// Colors
+$primaryColor: #f00
+$fontColor: #777
+$titleColor: #000
+$appBackgroundColor: #fff
+
+// Derived Colors
+$pageLoadingBarColor: $primaryColor
+
+// Typography
+$baseFontSize: 16px
+$baseFontSizeSm: 14px
+$baseFontSizeLg: 18px
+$lineHeight: 1.4
+$bodyFont: sans-serif
+$titleFont: sans-serif
+$titleFontWeight: 600
+$titleFontSize: 3.125rem
+$heroTitleFontSize: 3.75rem
+
+// Layout
+$marginVerySm: 0.188em
+$marginVerySmWs: 0.313rem
+$marginSm: 0.625rem
+$marginSmWs: 0.938rem
+$marginMd: 1.25rem
+$marginMdWs: 1.875rem
+$marginLg: 3.125rem
+$marginLgWs: 5rem
+$pageMargin: 1.25rem
+$pageMarginWs: 14.375rem
+$sectionMargin: 4rem
+$sectionMarginWs: 7rem
+$margins: (0: 0, auto: auto, 'verySm': $marginVerySm, 'sm': $marginSm, 'md': $marginMd, 'lg': $marginLg, 'page': $pageMargin, 'section': $sectionMargin)
+$marginsWs: (0: 0, auto: auto, 'verySm': $marginVerySmWs, 'sm': $marginSmWs, 'md': $marginMdWs, 'lg': $marginLgWs, 'page': $pageMarginWs, 'section': $sectionMarginWs)
+$pageHeaderHeight: 3rem
+$pageHeaderHeightWs: 5rem
+$pageLoadingBarHeight: 4px
+
+// Border
+$borderWidth: 2px
+$borderRadius: 1rem
+$borderRadiusOuter: 1.5rem
+$borderRadiusSm: 0.5rem
+
+// Draw Order
+$zLevel0: 0
+$zLevel1: 100
+$zLevel2: 1000
+$zLevel3: 10000
+
+// Transitions and Animations
+$tsxDuration: 400ms
+$tsxDurationQuick: 200ms
+$tsxEasing: ease
+
+
+/* Mixins */
+
+=viewport($args)
+  @include media($args...)
+    @content
+
+=isMobile
+  +viewport('<=tablet')
+    @content
+
+=isDesktop
+  +viewport('>tablet')
+    @content
+
+=responsiveMargins($property, $map, $top, $right, $bottom, $left)
+    @if $right == false
+      #{$property}: map-get($map, $top)
+    @else
+      @if $bottom == false
+        #{$property}: map-get($map, $top) map-get($map, $right)
+      @else
+        #{$property}: map-get($map, $top) map-get($map, $right) map-get($map, $bottom) map-get($map, $left)
+
+=margin($top, $right: false, $bottom: false, $left: 0)
+  +isMobile
+    +responsiveMargins('margin', $margins, $top, $right, $bottom, $left)
+  +isDesktop
+    +responsiveMargins('margin', $marginsWs, $top, $right, $bottom, $left)
+
+=padding($top, $right: false, $bottom: false, $left: 0)
+  +isMobile
+    +responsiveMargins('padding', $margins, $top, $right, $bottom, $left)
+  +isDesktop
+    +responsiveMargins('padding', $marginsWs, $top, $right, $bottom, $left)
+
+
+/* Functions */

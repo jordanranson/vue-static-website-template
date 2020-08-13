@@ -1,0 +1,31 @@
+html
+  font-size: $baseFontSize
+  +viewport('<tablet')
+    font-size: $baseFontSizeSm
+  +viewport('>=highdef')
+    font-size: $baseFontSizeLg
+
+body
+  width: 100%
+  min-height: 100vh
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  color: $fontColor
+  background-color: $appBackgroundColor
+
+#app
+  font-family: $bodyFont
+  line-height: $lineHeight
+
+  *
+    box-sizing: border-box
+
+  a
+    text-decoration: none
+
+  strong
+    font-weight: bold
+
+  input, select, button, textarea
+    appearance: none
+    font-family: $bodyFont
