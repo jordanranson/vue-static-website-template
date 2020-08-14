@@ -1,19 +1,21 @@
 <template>
   <div id="app">
-    <nav>
-      <page-header kind="static">
-        <page-link to="/">Home</page-link>
-        <page-link to="/about">About</page-link>
-      </page-header>
-    </nav>
-    <main :class="{ [`has-header-${$store.state.headerKind}`]: true }">
-      <transition name="tsx__fade" mode="out-in" appear>
-        <router-view />
-      </transition>
-      <page-loader>
-        <p>Loading...</p>
-      </page-loader>
-    </main>
+    <template v-if="isReady">
+      <nav>
+        <page-header kind="static">
+          <page-link to="/">Home</page-link>
+          <page-link to="/about">About</page-link>
+        </page-header>
+      </nav>
+      <main :class="{ [`has-header-${$store.state.headerKind}`]: true }">
+        <transition name="tsx__fade" mode="out-in" appear>
+          <router-view />
+        </transition>
+      </main>
+    </template>
+    <page-loader>
+      <p>Loading...</p>
+    </page-loader>
   </div>
 </template>
 
@@ -32,11 +34,17 @@ export default {
     resized
   ],
 
+  data () {
+    return {
+      isReady: false
+    }
+  },
+
   mounted () {
     this.$loading.finish(loading)
   },
 
-  created () {
+  async created () {
     loading = this.$loading.start()
 
     this.$router.beforeEach((to, from, next) => {
@@ -50,7 +58,9 @@ export default {
     })
 
     this.resize(0)
-    this.$store.dispatch('setLanguage', this.$store.state.lang)
+    await this.$store.dispatch('setLanguage', this.$store.state.lang)
+
+    this.isReady = true
   }
 }
 </script>
