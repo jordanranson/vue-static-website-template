@@ -19,7 +19,7 @@ Includes:
 ```
 npm i -g @vue/cli
 npm i -g @vue/cli-init
-vue init @twocatmoon/vue-static-site-template <directory-name>
+vue init jordanranson/vue-static-website-template <directory-name>
 cd <directory-name>
 npm i
 npm run serve
